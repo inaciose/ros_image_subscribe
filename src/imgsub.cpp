@@ -5,15 +5,20 @@
 
 void imageSubCallback(const sensor_msgs::ImageConstPtr& msg)
 {
+  cv::Mat img;
   try
   {
-    cv::imshow("view", cv_bridge::toCvShare(msg, "bgr8")->image);
+
+    img = cv_bridge::toCvShare(msg, "bgr8")->image;
     cv::waitKey(30);
   }
   catch (cv_bridge::Exception& e)
   {
     ROS_ERROR("Could not convert from '%s' to 'bgr8'.", msg->encoding.c_str());
   }
+    cv::imshow("view", img);
+    cv::waitKey(30);
+
 }
 
 int main(int argc, char **argv)
